@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* ── Brand tokens (taken from the AI Tech logo) ───────────── */
+@theme {
+  --color-navy: #08234a;
+  --color-navy-2: #0a315f;
+  --color-royal: #114f99;
+  --color-brand: #026db9;
+  --color-sky: #38bdf8;
+  --color-ice: #e6f2fc;
+  --color-canvas: #f2f6fb;
+  --color-ink: #0b1b33;
+  --color-body: #4a5b73;
+  --color-muted: #7a8aa3;
+
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html { scroll-padding-top: 88px; }
+body {
+  background: var(--color-canvas);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-ink); letter-spacing: -0.02em; }
+::selection { background: #026db933; }
+
+/* ── Gradient text ────────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(100deg, #08234a 0%, #114f99 40%, #026db9 70%, #38bdf8 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.bg-brand-gradient { background: linear-gradient(120deg, #08234a 0%, #114f99 45%, #026db9 100%); }
+
+/* ── Glassmorphism ────────────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.58);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 40px rgba(8, 35, 74, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.glass-strong {
+  background: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 30px rgba(8, 35, 74, 0.07);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass, .glass-strong { background: rgba(255, 255, 255, 0.94); }
+}
+
+/* ── Neumorphism ──────────────────────────────────────────── */
+.neu {
+  background: var(--color-canvas);
+  box-shadow: 10px 10px 24px #d2dbe8, -10px -10px 24px #ffffff;
+}
+.neu-sm {
+  background: var(--color-canvas);
+  box-shadow: 5px 5px 12px #d2dbe8, -5px -5px 12px #ffffff;
+}
+.neu-inset {
+  background: var(--color-canvas);
+  box-shadow: inset 4px 4px 10px #d2dbe8, inset -4px -4px 10px #ffffff;
+}
+
+/* ── Aurora background blobs ──────────────────────────────── */
+.aurora { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.aurora span {
+  position: absolute; border-radius: 9999px; opacity: 0.55;
+  will-change: transform; transform: translate3d(0, 0, 0);
+  animation: drift 26s ease-in-out infinite alternate;
+}
+.aurora .a1 { width: 700px; height: 700px; background: radial-gradient(circle, #7cc4f7 0%, transparent 65%); top: -240px; left: -220px; }
+.aurora .a2 { width: 640px; height: 640px; background: radial-gradient(circle, #a5b8ff 0%, transparent 65%); top: 5%; right: -240px; animation-delay: -8s; animation-duration: 30s; }
+.aurora .a3 { width: 600px; height: 600px; background: radial-gradient(circle, #9ff0f5 0%, transparent 65%); bottom: -260px; left: 25%; animation-delay: -14s; opacity: 0.45; }
+.aurora .a4 { width: 460px; height: 460px; background: radial-gradient(circle, #c9b8ff 0%, transparent 65%); bottom: 5%; left: -160px; animation-delay: -4s; opacity: 0.4; }
+@keyframes drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(60px, 40px, 0) scale(1.12); }
+  100% { transform: translate3d(-40px, 70px, 0) scale(0.95); }
+}
+
+/* Subtle dotted grid used behind the hero */
+.dot-grid {
+  background-image: radial-gradient(rgba(17, 79, 153, 0.14) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn-primary {
+  position: relative; overflow: hidden; isolation: isolate;
+  background: linear-gradient(120deg, #08234a 0%, #114f99 50%, #026db9 100%);
+  color: #fff; box-shadow: 0 10px 26px rgba(2, 109, 185, 0.32);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.btn-primary::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%);
+  transform: translateX(-120%); transition: transform .7s ease;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(2, 109, 185, 0.42); }
+.btn-primary:hover::after { transform: translateX(120%); }
+
+.btn-soft { transition: transform .25s ease, box-shadow .25s ease; color: var(--color-navy); }
+.btn-soft:hover { transform: translateY(-2px); }
+.btn-soft:active { box-shadow: inset 4px 4px 10px #d2dbe8, inset -4px -4px 10px #ffffff; transform: none; }
+
+/* Gradient border glow on hover (solution cards) */
+.glow-card { position: relative; }
+.glow-card::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px;
+  background: linear-gradient(135deg, #38bdf8, #026db9, #114f99);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity .35s ease;
+}
+.glow-card:hover::before { opacity: 1; }
+
+/* Infinite marquee */
+.marquee { animation: marquee 32s linear infinite; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+@keyframes floaty { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+.floaty, .floaty-slow { will-change: transform; }
+.floaty { animation: floaty 6s ease-in-out infinite; }
+.floaty-slow { animation: floaty 8s ease-in-out infinite; animation-delay: -2s; }
+
+@keyframes progress { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+
+@keyframes node-pulse { 0%,100% { transform: scale(.9) } 50% { transform: scale(1.35) } }
+.node-pulse { transform-box: fill-box; transform-origin: center; animation: node-pulse 3s ease-in-out infinite; will-change: transform; }
+
+/* Hero: no live backdrop blur over moving content (big scroll-lag source) */
+.hero-flat .glass, .hero-flat .glass-strong {
+  -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(255, 255, 255, 0.85);
+}
+/* Freeze every animation while the hero is off-screen */
+.hero-offscreen .aurora span, .hero-offscreen .floaty, .hero-offscreen .floaty-slow, .hero-offscreen .node-pulse { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora span, .marquee, .floaty, .floaty-slow, .node-pulse { animation: none !important; }
+}
